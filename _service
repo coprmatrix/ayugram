@@ -1,0 +1,12 @@
+<services>
+  <service name="download_url">
+    <param name="host">pagure.io</param>
+    <param name="protocol">https</param>
+    <param name="path">/mochaa-rpms/64gram/blob/rawhide/f/64Gram/64Gram.spec</param>
+    <param name="filename">64Gram.version</param>
+  </service>
+  <service name="set_version">
+    <param name="fromfile">_service:download_url:64Gram.version</param>
+  </service>
+  <service name="download_files"/>
+</services>
