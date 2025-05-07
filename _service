@@ -1,12 +1,15 @@
 <services>
-  <service name="download_url">
-    <param name="host">pagure.io</param>
-    <param name="protocol">https</param>
-    <param name="path">/mochaa-rpms/64gram/blob/rawhide/f/64Gram/64Gram.spec</param>
-    <param name="filename">64Gram.version</param>
-  </service>
-  <service name="set_version">
-    <param name="fromfile">_service:download_url:64Gram.version</param>
-  </service>
-  <service name="download_files"/>
+	<service name="obs_scm">
+		<param name="scm">git</param>
+		<param name="url">https://github.com/AyuGram/AyuGramDesktop.git</param>
+		<param name="versionformat">@PARENT_TAG@</param>
+		<param name="versionrewrite-pattern">v(.*)</param>
+		<param name="revision">dev</param>
+	</service>
+	<service name="set_version" />
+	<service name="tar" mode="buildtime" />
+	<service name="recompress" mode="buildtime" >
+		<param name="compression">gz</param>
+		<param name="file">*.tar</param>
+	</service>
 </services>

@@ -1,6 +1,3 @@
-%bcond_with qt5
-
-
 %{!?_metainfodir:%define _metainfodir %{_datadir}/metainfo}
 
 #define _use_internal_dependency_generator 0
@@ -11,16 +8,12 @@
 
 #%define __find_requires %{SOURCE1}
 # Telegram Desktop's constants...
-%global appname 64Gram
+%global appname ayugram
 
 # Reducing debuginfo verbosity...
 %global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
 
-%if 0%{?fedora} < 40 && 0%{?suse_version} < 1500
-%global with_qt5 1
-%endif
-
-Name: 64Gram
+Name: %{appname}
 Version: 1
 Release: 1%{?dist}
 
@@ -32,29 +25,10 @@ Release: 1%{?dist}
 # * plasma-wayland-protocols - LGPL-2.1-or-later -- static dependency;
 # * wayland-protocols - MIT -- static dependency;
 License:  GPL-3.0-or-later AND Apache-2.0 AND LGPL-3.0-only AND LGPL-2.1-or-later AND MIT
-URL:      https://github.com/TDesktop-x64/tdesktop
-
-#global commit_1 aa5f6297460e1c33d844c42bc2cccd3f7428b57
-#global commit_2 d61403889f94b472398e016bbe9d60f2563ce88e
-%global commit_1 rawhide
-%global commit_2 stable
-%global pgr https://pagure.io/mochaa-rpms/64gram/raw/%{commit_1}/f/64Gram
-%global cmt https://raw.githubusercontent.com/AOSC-Dev/aosc-os-abbs/%{commit_2}/app-web/telegram-desktop/autobuild/patches/
+URL:      https://github.com/ayugram/ayugramdesktop
 
 Summary:  Unofficial Telegram Desktop client
-Source0:  %{url}/releases/download/v%{version}/%{appname}-%{version}-full.tar.gz
-
-Patch2:   %{pgr}/0001-tdesktop-use-system-font-by-default.patch
-Patch3:   %{pgr}/0001-tdesktop-remove-default-font-in-settings.patch
-Patch100: %{pgr}/1000-tgcalls-fix-libyuv-include.patch
-Patch101: %{pgr}/1000-lib_tl-fix-cstring-include.patch
-Patch110: %{pgr}/1000-tdesktop-fix-build-qt5.patch
-Patch201: %{pgr}/0001-window-set-minimum-width-to-360px.patch
-Patch204: %{pgr}/0001-tdesktop-use-native-window-frame.patch
-
-Patch200: %{cmt}/1001-revert-hidpi-handling.patch
-
-
+Source0:  %{name}-%{version}.tar.gz
 
 # Telegram Desktop require more than 8 GB of RAM on linking stage.
 # Disabling all low-memory architectures.
@@ -72,29 +46,11 @@ ExclusiveArch: %x86_64 %arm64 ppc64le %riscv64
 # for cppgir generator
 BuildRequires: python3-rpm-macros
 
-%if %{with qt5}
-BuildRequires: (qt5-srpm-macros or libqt5-qtbase-common-devel)
-%else
 BuildRequires: (qt6-srpm-macros or qt6-macros)
-%endif
 
 BuildRequires: cmake(Microsoft.GSL) >= 4.0.0-10
 BuildRequires: cmake(OpenAL)
-%if %{with qt5}
-BuildRequires: cmake(Qt5Concurrent)
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5Network)
-BuildRequires: cmake(Qt5OpenGL)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5WaylandClient)
-BuildRequires: cmake(Qt5WaylandCompositor)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5Quick)
-BuildRequires: cmake(Qt5QuickWidgets)
-BuildRequires: cmake(KF5CoreAddons)
-%else
+
 BuildRequires: cmake(Qt6Concurrent)
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Core5Compat)
@@ -110,7 +66,7 @@ BuildRequires: cmake(Qt6Quick)
 BuildRequires: cmake(Qt6QuickWidgets)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(KF6CoreAddons)
-%endif
+
 BuildRequires: cmake(range-v3)
 BuildRequires: cmake(tg_owt)
 BuildRequires: cmake(tl-expected)
@@ -156,12 +112,8 @@ BuildRequires: pkgconfig(libpostproc) = 57.3.100
 BuildRequires: pkgconfig(libswresample) = 4.12.100
 BuildRequires: pkgconfig(libswscale) = 7.5.100
 
-%if 0%{suse_version} > 0
-BuildRequires: libboost_regex-devel
-%else
 BuildRequires: ffmpeg-free-devel
 BuildRequires: libatomic
-%endif
 
 BuildRequires: (libqrcodegencpp-devel or QR-Code-generator-devel)
 BuildRequires: (libappstream-glib or appstream-glib)
@@ -175,12 +127,8 @@ BuildRequires: python3dist(packaging)
 BuildRequires: boost-devel
 BuildRequires: fmt-devel
 BuildRequires: gobject-introspection-devel
-%if %{with qt5}
-BuildRequires: (qt5-qtbase-private-devel or libqt5-qtbase-private-headers-devel)
-%else
-BuildRequires: (qt6-qtbase-private-devel or qt6-base-private-devel)
-%endif
 
+BuildRequires: (qt6-qtbase-private-devel or qt6-base-private-devel)
 
 BuildRequires: dos2unix
 BuildRequires: binutils
@@ -188,29 +136,12 @@ BuildRequires: upx
 BuildRequires: coreutils
 BuildRequires: sed
 
-%if 0%{suse_version} == 0
-%if %{with qt5}
-Requires: qt5-qtbase%{?_isa} = %{_qt5_version}
-Requires: qt5-qtimageformats%{?_isa} = %{_qt5_version}
-%else
 Requires: qt6-qtbase%{?_isa} = %{_qt6_version}
 Requires: qt6-qtimageformats%{?_isa} = %{_qt6_version}
-%endif
-Recommends: webkitgtk6.0%{?_isa}
-%else
-Recommends: WebKitGTK-6.0
-%endif
 
 # Short alias for the main package...
 Provides: telegram = %{?epoch:%{epoch}:}%{version}-%{release}
 Provides: telegram%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-
-# Virtual provides for bundled libraries...
-Provides: bundled(cld3) = 3.0.13~gitb48dc46
-Provides: bundled(libtgvoip) = 2.4.4~gite286ab6
-Provides: bundled(tgcalls) = 0~g871ea04
-Provides: bundled(plasma-wayland-protocols) = 1.10.0
-Provides: bundled(libprisma) = 0~gitadf35ba
 
 %description
 Telegram is a messaging app with a focus on speed and security, it’s super
@@ -227,17 +158,7 @@ business messaging needs.
 
 %prep
 # Unpacking Telegram Desktop source archive...
-%autosetup -n %{appname}-%{version}-full -p1 -N
-
-# Unbundling libraries...
-for i in Telegram/{ThirdParty/{GSL,QR,dispatch,expected,fcitx-qt5,fcitx5-qt,hime,hunspell,scudo,kimageformats,kcoreaddons,lz4,minizip,nimf,range-v3,xxHash,rlottie},lib_ui/fonts/*.ttf}
-do
-rm -rf "$i" ||:
-done
-
-# 64Gram: fix inconsistent line ending
-dos2unix LICENSE LEGAL features.md changelog.txt README.md lib/xdg/*
-find . -not -type d -exec file "{}" ";" -print0 | grep -z CRLF | cut -d':' -z -f1 | xargs -0 dos2unix
+%autosetup -n %{appname}-%{version} -p1
 
 %autopatch -p1
 
@@ -258,51 +179,18 @@ find . -not -type d -exec file "{}" ";" -print0 | grep -z CRLF | cut -d':' -z -f
 %install
 %cmake_install
 
-%if 0%{suse_version} > 0
-%define dr %{_builddir}/%{appname}-%{version}-full
-for i in README.md changelog.txt features.md; do
-  install -Dm644 %{dr}/$i %{buildroot}%{_defaultdocdir}/%{name}/$i
-done
-for i in LICENSE LEGAL; do
-  install -Dm644 %{dr}/$i %{buildroot}%{_defaultlicensedir}/%{name}/$i
-done
-%endif
-%define br %{buildroot}%{_bindir}
-
-#(
-#echo '%package dependencies';
-#echo "cat << 'EOFEOF'"
-#echo %{br}/telegram-desktop | %{__find_requires_basic}
-#echo 'EOFEOF'
-#echo %{__find_requres_basic}
-#echo 'Dependencies for 64gram.'
-#echo '%files dependencies'
-#) | tee %{__find_requires}
-
-strip -s %{br}/telegram-desktop
-#upx -9 %{br}/telegram-desktop -o%{br}/64Gram
-#rm %{br}/telegram-desktop
-
-#post
-#{_sbindir}/update-alternatives --install '%{_bindir}/telegram-desktop' telegram-desktop '%{_bindir}/64Gram' 25 || :
-
-#postun
-#{_sbindir}/update-alternatives --remove telegram-desktop '%{_bindir}/64Gram' || :
-
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files
 %doc README.md changelog.txt features.md
 %license LICENSE LEGAL
-%{_bindir}/telegram-desktop
+%{_bindir}/*
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/*.*
 %{_datadir}/dbus-1/services/*.service
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
-* Tue Jul 23 2024 huakim tylyktar <zuhhaga@gmail.com> - 1.1.31-1
+* Tue Jul 23 2025 huakim tylyktar <zuhhaga@gmail.com> - 1.1.31-1
 - new version
 - Fix dependency resolve
