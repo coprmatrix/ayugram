@@ -96,14 +96,14 @@ BuildRequires: cmake
 BuildRequires: desktop-file-utils
 
 #ffmpeg related
-BuildRequires: pkgconfig(libavcodec) = 60.31.102
-BuildRequires: pkgconfig(libavdevice) = 60.3.100
-BuildRequires: pkgconfig(libavfilter) = 9.12.100
-BuildRequires: pkgconfig(libavformat) = 60.16.100
-BuildRequires: pkgconfig(libavutil) = 58.29.100
-BuildRequires: pkgconfig(libpostproc) = 57.3.100
-BuildRequires: pkgconfig(libswresample) = 4.12.100
-BuildRequires: pkgconfig(libswscale) = 7.5.100
+BuildRequires: pkgconfig(libavcodec)
+BuildRequires: pkgconfig(libavdevice)
+BuildRequires: pkgconfig(libavfilter)
+BuildRequires: pkgconfig(libavformat)
+BuildRequires: pkgconfig(libavutil)
+BuildRequires: pkgconfig(libpostproc)
+BuildRequires: pkgconfig(libswresample)
+BuildRequires: pkgconfig(libswscale)
 
 BuildRequires: ffmpeg-free-devel
 BuildRequires: libatomic
