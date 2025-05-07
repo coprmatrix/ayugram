@@ -1,12 +1,5 @@
 %{!?_metainfodir:%define _metainfodir %{_datadir}/metainfo}
 
-#define _use_internal_dependency_generator 0
-#{lua:
-#rpm.define('__find_requires_basic '..rpm.expand('__find_requires'))
-#rpm.define('__find_requires %{_builddir}/%{buildsubdir}/script.sh')
-#}
-
-#%define __find_requires %{SOURCE1}
 # Telegram Desktop's constants...
 %global appname ayugram
 
@@ -136,8 +129,8 @@ BuildRequires: upx
 BuildRequires: coreutils
 BuildRequires: sed
 
-Requires: qt6-qtbase%{?_isa} = %{_qt6_version}
-Requires: qt6-qtimageformats%{?_isa} = %{_qt6_version}
+Requires: qt6-qtbase%{?_isa}
+Requires: qt6-qtimageformats%{?_isa}
 
 # Short alias for the main package...
 Provides: telegram = %{?epoch:%{epoch}:}%{version}-%{release}
