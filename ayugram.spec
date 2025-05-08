@@ -38,12 +38,9 @@ ExclusiveArch: %x86_64 %arm64 ppc64le %riscv64
 
 # for cppgir generator
 BuildRequires: python3-rpm-macros
-
-BuildRequires: (qt6-srpm-macros or qt6-macros)
-
+BuildRequires: qt6-srpm-macros
 BuildRequires: cmake(Microsoft.GSL) >= 4.0.0-10
 BuildRequires: cmake(OpenAL)
-
 BuildRequires: cmake(Qt6Concurrent)
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Core5Compat)
@@ -59,12 +56,13 @@ BuildRequires: cmake(Qt6Quick)
 BuildRequires: cmake(Qt6QuickWidgets)
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(KF6CoreAddons)
-
 BuildRequires: cmake(range-v3)
 BuildRequires: cmake(tg_owt)
 BuildRequires: cmake(tl-expected)
 BuildRequires: cmake(rlottie)
-
+BuildRequires: cmake(Td)
+BuildRequires: cmake(fmt)
+BuildRequires: cmake(qrcodegencpp)
 BuildRequires: pkgconfig(alsa)
 BuildRequires: pkgconfig(gio-2.0)
 BuildRequires: pkgconfig(glib-2.0)
@@ -91,11 +89,8 @@ BuildRequires: pkgconfig(xcb-keysyms)
 BuildRequires: pkgconfig(xcb-record)
 BuildRequires: pkgconfig(xcb-screensaver)
 BuildRequires: pkgconfig(xkbcommon)
-
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
-
-#ffmpeg related
 BuildRequires: pkgconfig(libavcodec)
 BuildRequires: pkgconfig(libavdevice)
 BuildRequires: pkgconfig(libavfilter)
@@ -104,13 +99,9 @@ BuildRequires: pkgconfig(libavutil)
 BuildRequires: pkgconfig(libpostproc)
 BuildRequires: pkgconfig(libswresample)
 BuildRequires: pkgconfig(libswscale)
-
-BuildRequires: ffmpeg-free-devel
 BuildRequires: libatomic
-
-BuildRequires: (libqrcodegencpp-devel or QR-Code-generator-devel)
-BuildRequires: (libappstream-glib or appstream-glib)
-
+BuildRequires: libqrcodegencpp-devel
+BuildRequires: libappstream-glib
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: libdispatch-devel
@@ -118,11 +109,8 @@ BuildRequires: libstdc++-devel
 BuildRequires: python3
 BuildRequires: python3dist(packaging)
 BuildRequires: boost-devel
-BuildRequires: fmt-devel
 BuildRequires: gobject-introspection-devel
-
-BuildRequires: (qt6-qtbase-private-devel or qt6-base-private-devel)
-
+BuildRequires: qt6-qtbase-private-devel
 BuildRequires: dos2unix
 BuildRequires: binutils
 BuildRequires: upx
