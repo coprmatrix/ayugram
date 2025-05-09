@@ -7,7 +7,7 @@
 %global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
 
 Name: %{appname}
-Version: 1
+Version: 5.12.3
 Release: 1%{?dist}
 
 # Application and 3rd-party modules licensing:
@@ -40,6 +40,7 @@ ExclusiveArch: %x86_64 %arm64 ppc64le %riscv64
 BuildRequires: python3-rpm-macros
 BuildRequires: qt6-srpm-macros
 BuildRequires: cmake(Microsoft.GSL) >= 4.0.0-10
+BuildRequires: cmake(ada)
 BuildRequires: cmake(OpenAL)
 BuildRequires: cmake(Qt6Concurrent)
 BuildRequires: cmake(Qt6Core)
@@ -59,7 +60,7 @@ BuildRequires: cmake(KF6CoreAddons)
 BuildRequires: cmake(range-v3)
 BuildRequires: cmake(tg_owt)
 BuildRequires: cmake(tl-expected)
-BuildRequires: cmake(rlottie)
+#BuildRequires: cmake(rlottie)
 BuildRequires: cmake(Td)
 BuildRequires: cmake(fmt)
 BuildRequires: cmake(qrcodegencpp)
@@ -99,8 +100,9 @@ BuildRequires: pkgconfig(libavutil)
 BuildRequires: pkgconfig(libpostproc)
 BuildRequires: pkgconfig(libswresample)
 BuildRequires: pkgconfig(libswscale)
+BuildRequires: tdlib-static
 BuildRequires: libatomic
-BuildRequires: libqrcodegencpp-devel
+BuildRequires: pkgconfig(qrcodegencpp)
 BuildRequires: libappstream-glib
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -109,7 +111,7 @@ BuildRequires: libstdc++-devel
 BuildRequires: python3
 BuildRequires: python3dist(packaging)
 BuildRequires: boost-devel
-BuildRequires: gobject-introspection-devel
+BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: qt6-qtbase-private-devel
 BuildRequires: dos2unix
 BuildRequires: binutils
@@ -150,7 +152,7 @@ business messaging needs.
     -DTDESKTOP_API_HASH=d524b414d21f4d37f08684c1df41ac9c \
     -DTDESKTOP_DISABLE_AUTOUPDATE:BOOL=ON \
     -DDESKTOP_APP_USE_PACKAGED:BOOL=ON \
-    -DDESKTOP_APP_USE_PACKAGED_RLOTTIE:BOOL=ON \
+    -DDESKTOP_APP_USE_PACKAGED_RLOTTIE:BOOL=OFF \
     -DDESKTOP_APP_USE_PACKAGED_FONTS:BOOL=ON \
     -DDESKTOP_APP_DISABLE_WAYLAND_INTEGRATION:BOOL=OFF \
     -DDESKTOP_APP_DISABLE_X11_INTEGRATION:BOOL=OFF \
