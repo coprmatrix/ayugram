@@ -8,7 +8,7 @@
 
 Name: %{appname}
 Version: 5.12.3
-Release: 1%{?dist}
+Release: 0%{?dist}
 
 # Application and 3rd-party modules licensing:
 # * Telegram Desktop - GPL-3.0-or-later with OpenSSL exception -- main tarball;
@@ -101,10 +101,12 @@ BuildRequires: pkgconfig(libpostproc)
 BuildRequires: pkgconfig(libswresample)
 BuildRequires: pkgconfig(libswscale)
 BuildRequires: tdlib-static
+BuildRequires: tdlib-devel
 BuildRequires: libatomic
 BuildRequires: pkgconfig(qrcodegencpp)
 BuildRequires: libappstream-glib
 BuildRequires: gcc
+BuildRequires: ccache
 BuildRequires: gcc-c++
 BuildRequires: libdispatch-devel
 BuildRequires: libstdc++-devel
