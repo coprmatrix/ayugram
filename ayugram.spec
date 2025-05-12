@@ -169,7 +169,7 @@ business messaging needs.
 %check
 
 %files
-%doc README.md changelog.txt features.md
+%doc README.md changelog.txt
 %license LICENSE LEGAL
 %{_bindir}/*
 %{_datadir}/applications/*.desktop
@@ -178,6 +178,5 @@ business messaging needs.
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
-* Tue Jul 23 2025 huakim tylyktar <zuhhaga@gmail.com> - 1.1.31-1
+* Tue May 12 2025 huakim tylyktar <zuhhaga@gmail.com> - 5.12.3
 - new version
-- Fix dependency resolve
