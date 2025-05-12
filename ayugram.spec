@@ -102,6 +102,7 @@ BuildRequires: pkgconfig(libswresample)
 BuildRequires: pkgconfig(libswscale)
 BuildRequires: tdlib-static
 BuildRequires: tdlib-devel
+BuildRequires: openssl-devel-engine
 BuildRequires: libatomic
 BuildRequires: pkgconfig(qrcodegencpp)
 BuildRequires: libappstream-glib
