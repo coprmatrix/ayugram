@@ -6,7 +6,7 @@
 # Reducing debuginfo verbosity...
 %global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
 
-Name: %{appname}
+Name: %{appname}-desktop
 Version: 5.12.3
 Release: 0%{?dist}
 
@@ -21,7 +21,7 @@ License:  GPL-3.0-or-later AND Apache-2.0 AND LGPL-3.0-only AND LGPL-2.1-or-late
 URL:      https://github.com/ayugram/ayugramdesktop
 
 Summary:  Unofficial Telegram Desktop client
-Source0:  %{name}-%{version}.tar.gz
+Source0:  %{appname}-%{version}.tar.gz
 
 # Telegram Desktop require more than 8 GB of RAM on linking stage.
 # Disabling all low-memory architectures.
